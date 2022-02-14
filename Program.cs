@@ -531,14 +531,15 @@ namespace ISM6225_Assignment_2_Spring_2022
             try
             {
                 var list = new List<char>();
-
+                //traverse the input string s
                 for (int i = 0; i < s.Length; i++)
                 {
+                    //check the type of brackets
                     if (s[i] == ')' || s[i] == '}' || s[i] == ']')
                     {
                         if (list.Count() == 0)
                             return false;
-
+                        //check if the open is not equal to the closing brackets. If not equal return true
                         var c = list[list.Count() - 1];
                         if ((c == '(' && s[i] != ')') || (c == '[' && s[i] != ']') || (c == '{' && s[i] != '}'))
                             return false;
@@ -593,24 +594,30 @@ namespace ISM6225_Assignment_2_Spring_2022
 
                 string s = "";
                 int count = 0;
+                //store the more equivalent of each alphabet in key value format
                 Dictionary<char, string> textToMorse = new Dictionary<char, string>()
                 { { 'a', ".-"}, { 'b', "-..."},  { 'c', "-.-."},  { 'd', "-.."},  { 'e', "."},  { 'f', "..-."},  { 'g', "--."},  { 'h', "...."},  { 'i', ".."},  { 'j', ".---"},  { 'k', "-.-"},  { 'l', ".-.."},
                   { 'm', "--"},  { 'n', "-."},  { 'o', "---"},  { 'p', ".--."},  { 'q', "--.-"},  { 'r', ".-."},  { 's', "..."},  { 't', "-"},  { 'u', "..-"},  { 'v', "...-"},  { 'w', ".--"},  { 'x', "-..-"},  { 'y', "-.--"},  { 'z', "--.."}};
                 List<string> morseofWords = new List<string>();
+                //read each word in the array
                 for (int i = 0; i < words.Length; i++)
                 {
                     if (i == words.Length)
                         break;
                     else
                     {
+                        //read each character in each word
                         foreach (char c in words[i])
                         {
                             count++;
+                            //for each value in the dictionary match the character with the key. Convert the word to morse code.
                             foreach (var v in textToMorse)
                             {
                                 if (c == v.Key)
                                 {
+                                    //store the morse code value in a string
                                     s += v.Value;
+                                    //if the value length of each word is reached, add it to the list. make the string value to null and set count to 0.
                                     if (count == words[i].Length)
                                     {
                                         morseofWords.Add(s);
@@ -625,7 +632,7 @@ namespace ISM6225_Assignment_2_Spring_2022
 
                     }
                 }
-
+                //check if there are duplicate morsecode for more than one word. Return the count of only the distinct strings
                 return morseofWords.Distinct().Count();
             }
 
